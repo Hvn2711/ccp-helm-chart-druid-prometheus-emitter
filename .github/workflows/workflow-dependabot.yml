@@ -1,0 +1,14 @@
+# (c) Copyright 2023 Hewlett Packard Enterprise Development LP
+
+name: Workflow Version Scanner
+
+on:
+  schedule:
+    - cron: '0 18 * * *'
+  pull_request:
+
+jobs:
+  workflow-scanner:
+    uses: hpe-actions/workflow-dependabot/.github/workflows/workflow-scanner.yml@v1
+    secrets:
+      gh_token: ${{ secrets.GLCP_GH_TOKEN }}

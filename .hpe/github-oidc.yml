@@ -1,0 +1,10 @@
+version: v1alpha3
+capabilityOptions:
+  - name: ecr-glcp-artifacts-dev
+    type: ecr-v3
+    repositories:
+      - /druid-exporter
+  - name: ecr-glcp-artifacts-prod
+    type: ecr-v3
+    repositories:
+      - /druid-exporter
