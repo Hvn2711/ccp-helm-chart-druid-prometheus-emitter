@@ -1,4 +1,4 @@
-# (c) Copyright 2023 Hewlett Packard Enterprise Development LP
+# (c) Copyright 2024-2025 Hewlett Packard Enterprise Development LP
 ---
 apiVersion: v2
 appVersion: "v0.1.0"
@@ -8,8 +8,8 @@ name: druid-exporter
 #increased the chart version to 0.1.6
 version: 0.1.15
 maintainers:
-- email: kavya.goel@hpe.com
-  name: kavya goel
+- email: bharadwaj.dodda@hpe.com
+  name: bharadwaj dodda
 keywords:
 - kubernetes
 - apache
@@ -18,3 +18,5 @@ keywords:
 - prometheus
 - grafana
 icon: https://github.com/opstree/druid-exporter/blob/master/static/druid-exporter-logo.svg
+
+

@@ -1,0 +1,15 @@
+# (c) Copyright 2024-2025 Hewlett Packard Enterprise Development LP
+apiVersion: v2
+appVersion: v0.1.0
+description: To monitor druid with alerts
+keywords:
+- kubernetes
+- druid
+- exporter
+- prometheus
+- grafana
+maintainers:
+- email: bharadwaj.dodda@hpe.com
+  name: bharadwaj dodda
+name: druid-alerts
+version: 0.1.0
