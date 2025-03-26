@@ -240,7 +240,10 @@ kubectl top pod <middlemanager-pod-name> -n druid
 
 1. To fix the configmap:
 
+```
 kubectl edit cm <configmap> -n druid
+```
+
 2. To fix Middlemanager issue, edit this configmap:
 
 ```
