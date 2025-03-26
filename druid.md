@@ -225,6 +225,7 @@ kubectl edit configmap <configmap-name> -n druid
 kubectl get configmap -n druid 
 kubectl describe configmap <configmap-name> -n druid 
 kubectl get events -n druid | grep ConfigMap  
+
 ```
 2. If MiddleManager pods are crashing, check the available CPU cores and worker capacity, especially if the pod is restarting due to OOMKilled:
 ```
@@ -241,6 +242,7 @@ kubectl top pod <middlemanager-pod-name> -n druid
 
 kubectl edit cm <configmap> -n druid
 2. To fix Middlemanager issue, edit this configmap:
+
 ```
 kubectl get cm -ndruid common-runtime-properties -oyaml
 ```
@@ -256,6 +258,7 @@ And now i see the objects are pushed to s3 and hope this will fix the issue.
 ## Detection 
 
 review the previous pod logs using the following command:
+
 ```
 kubectl logs -p -n zk-druid <pod>
 ```
@@ -274,10 +277,13 @@ zk_jvm_heap_size = "1G"
 Take backup of the deployment. 
 
 Then execute the command: 
+
 ```
 kubectl edit deploy -n zk-druid
 ```
-go ahead & increase the value of
+
+Increase the Value of:
+
 ```
 readinessProbe:
     initialDelaySeconds: <make value to 100>
