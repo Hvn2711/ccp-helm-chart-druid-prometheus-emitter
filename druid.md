@@ -183,7 +183,9 @@ containers:
 
 Navigate to the Druid UI, open the "Services" tab, and check if any service is exceeding usage: 
 
+```
 kubectl port-forward svc/druid-router-cs  -n druid 8888 
+```
 
 ## Resolution 
 
@@ -195,16 +197,18 @@ historical_max_size = 800000000000
 ## Detection
 
 Navigate to the Druid UI: 
-
+```
 kubectl port-forward svc/druid-router-cs  -n druid 8888 
-
+```
 Check the number of pending and running tasks. If there are too many pending tasks, increase the worker capacity. You can find the pending tasks in the "Tasks" section.
 
 ## Resolution 
 
 1. Edit the ConfigMap for the Druid MiddleManager to increase worker capacity based on the number of pending tasks.
 2. Use the following kubectl command to edit the ConfigMap:
+```
 kubectl edit configmap <configmap-name> -n druid
+```
 3. Locate the relevant configuration for worker capacity and increase it accordingly.
 4. Save the changes and restart the MiddleManager pods for the update to take effect.
 5. Verify the changes by checking the number of pending tasks in the Druid UI under the "Tasks" section
@@ -215,14 +219,17 @@ kubectl edit configmap <configmap-name> -n druid
 
 1. Check all Druid-related ConfigMaps for errors:
 
+```
 kubectl get configmap -n druid 
 kubectl describe configmap <configmap-name> -n druid 
 kubectl get events -n druid | grep ConfigMap  
-
+```
 2. If MiddleManager pods are crashing, check the available CPU cores and worker capacity, especially if the pod is restarting due to OOMKilled:
+```
 kubectl get pods -n druid 
 kubectl describe pod <middlemanager-pod-name> -n druid | grep -i "OOMKilled"  
 kubectl top pod <middlemanager-pod-name> -n druid
+```
 
 3. Verify that data is being pushed to deep storage. Check the logs of the indexing tasks. Inspect the task history in the Druid UI under the "Tasks" section.
 
@@ -232,8 +239,9 @@ kubectl top pod <middlemanager-pod-name> -n druid
 
 kubectl edit cm <configmap> -n druid
 2. To fix Middlemanager issue, edit this configmap:
-
+```
 kubectl get cm -ndruid common-runtime-properties -oyaml
+```
 
 3. To fix Deep Storage issue:
 Find your S3 bucket and click permissions
@@ -246,7 +254,9 @@ And now i see the objects are pushed to s3 and hope this will fix the issue.
 ## Detection 
 
 review the previous pod logs using the following command:
+```
 kubectl logs -p -n zk-druid <pod>
+```
 
 1. Check for OOM error: look for messages like: java.lang.OutOfMemoryError: Java heap space , Killed (indicates OOMKill by Kubernetes)
 2. Check for liveliness & readiness probe error.
@@ -259,8 +269,12 @@ zk_jvm_heap_size = "1G"
 
 2. For liveliness & readiness probe error:
 
-Take backup of the deployment
+Take backup of the deployment. 
+
+Then execute the command: 
+```
 kubectl edit deploy -n zk-druid
+```
 go ahead & increase the value of
 readinessProbe:
     initialDelaySeconds: <make value to 100>
@@ -272,7 +286,9 @@ livenessProbe:
 ## Detection
 
 Check by using the following command:
+```
 kubectl describe po  -n druid druid-historical-0
+```
 
 ```
 Events:
