@@ -190,7 +190,9 @@ kubectl port-forward svc/druid-router-cs  -n druid 8888
 ## Resolution 
 
 In the cluster repository, locate the ccp_druid.tf file and navigate to the Druid module. Update the historical_max_size parameter to 800000000000. If this parameter does not exist, add it as follows:
+```
 historical_max_size = 800000000000
+```
 
 # Data ingestion lag
 
@@ -276,10 +278,12 @@ Then execute the command:
 kubectl edit deploy -n zk-druid
 ```
 go ahead & increase the value of
+```
 readinessProbe:
     initialDelaySeconds: <make value to 100>
 livenessProbe:
     initialDelaySeconds: <make value to 100>
+```
 
 # Historical pod stuck in init state
 
@@ -300,14 +304,14 @@ Events:
 
 ## Resolution
 
-ssh into the node associated with historical pod
+1. ssh into the node associated with historical pod
 cd /mnt
 <you will see only datadisk0>
 
-In general every node associated with historical pod should have 4 datadisk (i.e. datadisk0,datadisk1,datadisk2,datadisk3)
+2. In general every node associated with historical pod should have 4 datadisk (i.e. datadisk0,datadisk1,datadisk2,datadisk3)
 Due to it’s absence this issue occurs
 
-Solution is create 3 more datadisk
+3. Solution is create 3 more datadisk
 sudo mkdir datadisk<id>
 where id=1,2,3
 
